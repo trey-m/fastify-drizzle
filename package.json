@@ -1,0 +1,26 @@
+{
+  "name": "fastify-drizzle",
+  "version": "1.0.0",
+  "description": "fastify drizzle plugin",
+  "main": "index.js",
+  "scripts": {
+    "example": "node ./example"
+  },
+  "keywords": [
+    "fastify",
+    "drizzle",
+    "plugin",
+    "orm"
+  ],
+  "author": "Trey Martin",
+  "license": "MIT",
+  "dependencies": {
+    "drizzle-orm": "^0.26.5",
+    "fastify": "^4.18.0",
+    "fastify-plugin": "^4.5.0",
+    "pg": "^8.11.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}
