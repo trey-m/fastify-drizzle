@@ -16,7 +16,7 @@ async function fastifyDrizzle(fastify, opts) {
     });
   } catch (err) {
     fastify.log.error(err.message, err.stack);
-		throw new Error(err.message)
+    throw new Error(err.message);
   }
 }
 
