@@ -1,24 +1,22 @@
 const fastify = require('fastify')({ logger: true });
 const { dbURI } = require('../secrets');
 
-const connector = 'node-postgres';
+const connector = 'postgresjs';
 
 fastify.register(require('../'), { connectionString: dbURI, connector }, (err) =>
   fastify.log.error(err)
 );
 
 const drizzleConnectionInfo = (fastify) => {
-  const drizzleClient = fastify.drizzle?.session.client;
+  const drizzleClient = fastify.drizzle;
   return {
-    database: drizzleClient.database,
-    connected: drizzleClient._connected,
-    queryable: drizzleClient._queryable
+    connector,
+    instance: drizzleClient
   };
 };
 
 fastify.get('/', async (request, reply) => {
   const drizzle = drizzleConnectionInfo(fastify);
-  console.log(drizzle);
   fastify.log.info(JSON.stringify(drizzle));
   return { drizzle };
 });
