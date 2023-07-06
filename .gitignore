@@ -1,3 +1,4 @@
 /node_modules
 SPEC.md
 secrets.js
+.nyc_output

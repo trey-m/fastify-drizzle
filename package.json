@@ -4,7 +4,8 @@
   "description": "fastify drizzle plugin",
   "main": "index.js",
   "scripts": {
-    "example": "node ./example"
+    "example": "node ./example",
+    "test": "tap"
   },
   "keywords": [
     "fastify",
@@ -22,6 +23,7 @@
     "postgres": "^3.3.5"
   },
   "devDependencies": {
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "tap": "^16.3.7"
   }
 }
