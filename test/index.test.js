@@ -4,16 +4,26 @@ const Fastify = require('fastify');
 const t = require('tap');
 const test = t.test;
 
+const cleanup = () => {
+  const fastify = Fastify();
+  t.teardown(fastify.close.bind(fastify));
+};
+
 test('index.js', async (t) => {
   await t.test('registering succeeded', async (t) => {
     t.plan(1);
 
     const fastify = Fastify();
-    t.teardown(fastify.close.bind(fastify));
 
     const fastifyDrizzle = t.mock('..', {
       '../lib/utils/connector': {
-        deriveConnector: () => ({})
+        deriveConnector: () => ({
+          session: {
+            client: {
+              end: () => {}
+            }
+          }
+        })
       }
     });
 
@@ -26,11 +36,16 @@ test('index.js', async (t) => {
     t.plan(2);
 
     const fastify = Fastify();
-    t.teardown(fastify.close.bind(fastify));
 
     const fastifyDrizzle = t.mock('..', {
       '../lib/utils/connector': {
-        deriveConnector: () => ({})
+        deriveConnector: () => ({
+          session: {
+            client: {
+              end: () => {}
+            }
+          }
+        })
       }
     });
 
@@ -46,7 +61,6 @@ test('index.js', async (t) => {
     t.plan(1);
 
     const fastify = Fastify();
-    t.teardown(fastify.close.bind(fastify));
 
     const fastifyDrizzle = t.mock('..', {
       '../lib/utils/connector': {
@@ -58,4 +72,5 @@ test('index.js', async (t) => {
 
     t.rejects(() => fastify.register(fastifyDrizzle));
   });
+  cleanup();
 });
