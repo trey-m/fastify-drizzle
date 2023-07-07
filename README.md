@@ -12,9 +12,9 @@ Coming soon...
 
 ```javascript
 const opts = {
-  connectionString: '', //required
-  connector: '', //required - supported connectors are [node-postgres and postgresjs]
-  alias: '' //optional
+  connectionString: '', // required
+  connector: '', // required - supported connectors are [node-postgres and postgresjs]
+  alias: '' // optional
 };
 
 fastify.register(require('fastify-drizzle'), opts, (err) => console.error(err));
