@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "example": "node ./example",
-    "test": "tap"
+    "test": "tap --no-check-coverage"
   },
   "keywords": [
     "fastify",
