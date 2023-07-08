@@ -7,7 +7,7 @@ const {
   missingOptionsErrorMessage,
   invalidConnectorErrorMessage,
   getAvailableConnectors,
-  connectorInitializationError
+  connectorInitializationErrorMessage
 } = require('../../lib/utils/connector');
 
 test('connector.js', async (t) => {
@@ -59,7 +59,7 @@ test('connector.js', async (t) => {
       await fastify.register(require('../../'), { connector });
     } catch (err) {
       const errStr = err.toString();
-      const expectedErr = `Error: ${connectorInitializationError(connector)}`;
+      const expectedErr = `Error: ${connectorInitializationErrorMessage(connector)}`;
       if (errStr === expectedErr) {
         t.match(errStr, expectedErr);
       }
