@@ -9,8 +9,9 @@ async function fastifyDrizzle(fastify, opts) {
     const alias = opts?.alias ? opts.alias : 'drizzle';
 
     fastify.decorate(alias, connector).addHook('onClose', (instance, done) => {
-      if (instance[alias] === connector) {
-        fastify.log.info(`Drizzle is shutting down [onCloseHook]`);
+      if (typeof instance[alias] === 'object') {
+        fastify.log.info(`Drizzle is shutting down`);
+        fastify.drizzle.session.client.end();
       }
       done();
     });
