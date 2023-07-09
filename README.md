@@ -2,6 +2,8 @@
 
 ![Test](https://github.com/trey-m/fastify-drizzle/workflows/Test/badge.svg)
 
+[![NPM](https://nodei.co/npm/fastify-drizzle.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/fastify-drizzle/)
+
 Fastify plugin to conveniently use [Drizzle](https://orm.drizzle.team) across your application.
 
 ## Installation
