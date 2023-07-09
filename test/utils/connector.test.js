@@ -56,7 +56,6 @@ test('connector.js', async (t) => {
     try {
       await fastify.register(require('../../'), { connectionString: '' });
     } catch (err) {
-      console.log({ err });
       const errStr = err.toString();
       const expectedErr = `Error: ${missingOptionsErrorMessage()}`;
       if (errStr === expectedErr) {
