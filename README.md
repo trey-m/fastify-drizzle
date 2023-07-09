@@ -6,7 +6,9 @@ Fastify plugin to conveniently use [Drizzle](https://orm.drizzle.team) across yo
 
 ## Installation
 
-Coming soon...
+```bash
+npm install fastify-drizzle
+```
 
 ## Usage
 
