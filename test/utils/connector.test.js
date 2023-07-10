@@ -17,15 +17,9 @@ test('connector.js', async (t) => {
     const fastify = Fastify();
     t.teardown(fastify.close.bind(fastify));
 
-    try {
-      await fastify.register(require('../../'));
-    } catch (err) {
-      const errStr = err.toString();
-      const expectedErr = `Error: ${missingOptionsErrorMessage()}`;
-      if (errStr === expectedErr) {
-        t.match(errStr, expectedErr);
-      }
-    }
+    const expectedErr = missingOptionsErrorMessage();
+
+    await t.rejects(fastify.register(require('../../')), new Error(expectedErr));
   });
 
   await t.test('connectionString required', async (t) => {
@@ -35,16 +29,9 @@ test('connector.js', async (t) => {
     t.teardown(fastify.close.bind(fastify));
 
     const connector = (await getAvailableConnectors())[0];
+    const expectedErr = missingOptionsErrorMessage();
 
-    try {
-      await fastify.register(require('../../'), { connector });
-    } catch (err) {
-      const errStr = err.toString();
-      const expectedErr = `Error: ${missingOptionsErrorMessage()}`;
-      if (errStr === expectedErr) {
-        t.match(errStr, expectedErr);
-      }
-    }
+    await t.rejects(fastify.register(require('../../'), { connector }), new Error(expectedErr));
   });
 
   await t.test('connector required', async (t) => {
@@ -53,15 +40,12 @@ test('connector.js', async (t) => {
     const fastify = Fastify();
     t.teardown(fastify.close.bind(fastify));
 
-    try {
-      await fastify.register(require('../../'), { connectionString: '' });
-    } catch (err) {
-      const errStr = err.toString();
-      const expectedErr = `Error: ${missingOptionsErrorMessage()}`;
-      if (errStr === expectedErr) {
-        t.match(errStr, expectedErr);
-      }
-    }
+    const expectedErr = missingOptionsErrorMessage();
+
+    await t.rejects(
+      fastify.register(require('../../'), { connectionString: '' }),
+      new Error(expectedErr)
+    );
   });
 
   await t.test('connector must be valid', async (t) => {
@@ -70,17 +54,14 @@ test('connector.js', async (t) => {
     const fastify = Fastify();
     t.teardown(fastify.close.bind(fastify));
 
+    const availableConnectors = await getAvailableConnectors();
     const connector = 'foo';
-    try {
-      await fastify.register(require('../../'), { connector, connectionString: 'foo' });
-    } catch (err) {
-      const availableConnectors = await getAvailableConnectors();
-      const errStr = err.toString();
-      const expectedErr = `Error: ${invalidConnectorErrorMessage(connector, availableConnectors)}`;
-      if (errStr === expectedErr) {
-        t.match(errStr, expectedErr);
-      }
-    }
+    const expectedErr = invalidConnectorErrorMessage(connector, availableConnectors);
+
+    await t.rejects(
+      fastify.register(require('../../'), { connector, connectionString: '' }),
+      new Error(expectedErr)
+    );
   });
 
   await t.test('connector fails to initialize', async (t) => {
@@ -90,15 +71,11 @@ test('connector.js', async (t) => {
     t.teardown(fastify.close.bind(fastify));
 
     const connector = (await getAvailableConnectors())[0];
+    const expectedErr = connectorInitializationErrorMessage(connector);
 
-    try {
-      await fastify.register(require('../../'), { connector, connectionString: 'foo' });
-    } catch (err) {
-      const errStr = err.toString();
-      const expectedErr = `Error: ${connectorInitializationErrorMessage(connector)}`;
-      if (errStr === expectedErr) {
-        t.match(errStr, expectedErr);
-      }
-    }
+    await t.rejects(
+      fastify.register(require('../../'), { connector, connectionString: 'foo' }),
+      new Error(expectedErr)
+    );
   });
 });
