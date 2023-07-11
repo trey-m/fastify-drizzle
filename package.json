@@ -1,6 +1,6 @@
 {
   "name": "fastify-drizzle",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "fastify drizzle plugin",
   "main": "index.js",
   "scripts": {
