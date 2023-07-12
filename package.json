@@ -7,8 +7,7 @@
     "example": "node ./example",
     "pretty": "prettier --write '*.{js,json,md}'",
     "test": "tap --no-check-coverage",
-    "lint-staged": "lint-staged",
-    "prepare": "husky install"
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*.{js,json,md}": [
