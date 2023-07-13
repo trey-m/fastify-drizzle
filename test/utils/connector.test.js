@@ -42,10 +42,7 @@ test('connector.js', async (t) => {
 
     const expectedErr = missingOptionsErrorMessage();
 
-    await t.rejects(
-      fastify.register(require('../../'), { connectionString: '' }),
-      new Error(expectedErr)
-    );
+    await t.rejects(fastify.register(require('../../'), { connectionString: '' }), new Error(expectedErr));
   });
 
   await t.test('connector must be valid', async (t) => {
@@ -58,10 +55,7 @@ test('connector.js', async (t) => {
     const connector = 'foo';
     const expectedErr = invalidConnectorErrorMessage(connector, availableConnectors);
 
-    await t.rejects(
-      fastify.register(require('../../'), { connector, connectionString: '' }),
-      new Error(expectedErr)
-    );
+    await t.rejects(fastify.register(require('../../'), { connector, connectionString: '' }), new Error(expectedErr));
   });
 
   await t.test('connector fails to initialize', async (t) => {
