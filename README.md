@@ -17,7 +17,7 @@ npm install fastify-drizzle
 ```javascript
 const opts = {
   connectionString: '', // required
-  connector: '', // required - supported connectors are [node-postgres and postgresjs]
+  connector: '', // required - supported connectors are [node-postgres, postgresjs, neon]
   alias: '' // optional
 };
 
