@@ -1,7 +1,7 @@
 const fastify = require('fastify')({ logger: true });
 const { dbURI } = require('../secrets');
 
-const connector = 'postgresjs';
+const connector = 'neon';
 
 fastify.register(require('../'), { connectionString: dbURI, connector }, (err) => fastify.log.error(err));
 

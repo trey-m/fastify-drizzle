@@ -12,7 +12,9 @@ async function fastifyDrizzle(fastify, opts) {
       const client = fastify[alias]?.session?.client;
       if (client) {
         fastify.log.info(`Drizzle client is disconnecting`);
-        fastify.drizzle.session.client.end();
+        if (typeof client.end === 'function') {
+          fastify.drizzle.session.client.end();
+        }
       }
       done();
     });
