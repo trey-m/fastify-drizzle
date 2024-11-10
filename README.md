@@ -15,9 +15,10 @@ npm install fastify-drizzle
 ## Usage
 
 ```javascript
+// example node-postgres options object
 const opts = {
-  connectionString: '', // required
-  connector: '', // required - supported connectors are [node-postgres, postgresjs, neon]
+  connectionString: 'postgresql://username:password@host:port/dbname', // required
+  connector: 'node-postgres', // required - supported connectors are [node-postgres, postgresjs, neon, sqlite]
   alias: '' // optional
 };
 
@@ -27,6 +28,23 @@ fastify.get('/', (request, reply) => {
   const drizzle = fastify.drizzle; // Drizzle instance
   console.log(drizzle);
 });
+```
+
+The SQLite connector can work with both a local database file and a remote [Turso](https://turso.tech/) database.
+
+```javascript
+// local database
+const sqliteOpts = {
+  connectionString: 'file:/path/to/my.db',
+  connector: 'sqlite'
+};
+
+// Turso
+const tursoOpts = {
+  connectionString: '{TURSO_DATABASE_URL}',
+  authToken: '{TURSO_AUTH_TOKEN}',
+  connector: 'sqlite'
+};
 ```
 
 ## Contributing

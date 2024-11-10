@@ -101,6 +101,26 @@ test('index.js', async (t) => {
     t.equal(mockEnd.callCount, 1);
   });
 
+  await t.test('closing does not throw if client does not have "end" method', async (t) => {
+    const mockEnd = sinon.fake();
+    t.plan(0);
+
+    const fastify = Fastify();
+
+    const fastifyDrizzle = t.mock('..', {
+      '../lib/utils/connector': {
+        deriveConnector: () => ({
+          session: {
+            client: {}
+          }
+        })
+      }
+    });
+
+    await fastify.register(fastifyDrizzle);
+    await fastify.close();
+  });
+
   await t.test('closing with alias succeeded', async (t) => {
     const mockEnd = sinon.fake();
     t.plan(2);
